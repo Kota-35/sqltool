@@ -51,9 +51,13 @@ fn report_error(error: &anyhow::Error) -> ExitCode {
             }
         }
 
-        // stderrが閉じられてもパニックしないため、eprintln!ではなくwriteln!を使用
+        // std::io::stderr().lock()は、標準エラー出力への排他的なアクセスを取得する。
+        // ロックが取得されている間は、他のスレッドからの書き込みは待機され、出力が混ざらない。
+        // 複数のスレッドから同時にstderrに書き込んでも、出力が混ざらないようにします。
         let mut stderr = std::io::stderr().lock();
 
+        // writeln!マクロは、eprintln!と異なり、書き込みエラーをResultとして返す。
+        // .ok()でエラーを無視することで、stderrが閉じられている場合でもパニックせずに処理を続行できる。
         writeln!(stderr, "{}", "sqltool failed".red().bold()).ok();
 
         for cause in error.chain() {
