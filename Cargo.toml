@@ -16,5 +16,17 @@ resolver = "2"
 [workspace.package]
 edition = "2024"
 rust-version = "1.89"
+repository = "https://github.com/Kota-35/sqltool"
 authors = ["Kota-35 <ishikuro6.2@gmail.com>"]
 license = "MIT"
+
+[workspace.dependencies]
+sqltool = { path = "creates/sqltool" }
+
+clap = { version = "4.5.53", features = ["derive"] }
+wild = { version = "2" }
+argfile = { version = "0.2.1" }
+anyhow = { version = "1.0.100" }
+colored = { version = "3.0.0" }
+
+
