@@ -1,0 +1,20 @@
+[workspace]
+members = ["crates/*"]
+# [TIPS] 機能拡張重複・依存の肥大化を防ぐため
+# あるクレート A を、複数の異なる別クレート (B, C) が依存していて、
+# それぞれが A に対して異なる features を要求している場合
+# resolver = "1"だと、
+#   A は"B と C のどちらで使うにせよ"すべてのfeaturesをまとめて有効になる
+#   -> 必要以上に機能がオンになったり、バイナリサイズが大きくなったりする可能性がある
+# resolver = "2"だと、
+#   B 経由ビルド時は B が要求する features だけ、C経由次は Cの要求だけ、という形になる
+#   -> より最小限で安全に
+# 
+# 基本的には resolver = "2"を選択するのがよい
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.89"
+authors = ["Kota-35 <ishikuro6.2@gmail.com>"]
+license = "MIT"
