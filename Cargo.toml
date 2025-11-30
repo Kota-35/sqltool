@@ -23,10 +23,13 @@ license = "MIT"
 [workspace.dependencies]
 sqltool = { path = "creates/sqltool" }
 
+# コマンドライン引数のパースとCLI構築
 clap = { version = "4.5.53", features = ["derive"] }
+# ワイルドカードパターンマッチング（ファイルパス展開など）
 wild = { version = "2" }
+# コマンドライン引数をファイルから読み込む機能
 argfile = { version = "0.2.1" }
+# エラーハンドリングとエラー型の提供
 anyhow = { version = "1.0.100" }
+# ターミナル出力の色付け（ANSIカラーコード）
 colored = { version = "3.0.0" }
-
-
